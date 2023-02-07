@@ -1,6 +1,5 @@
 .profile {
   pointer-events: none;
-  margin-bottom: 2em;
   margin-top: 3em;
 
   .face-wrapper {
@@ -59,14 +58,15 @@
       z-index: 5;
     }
   }
-  .name {
-    display: inline-block;
-    max-width: calc(95% - 160px);
-    margin-right: 5%;
-    padding-left: 30px;
-    vertical-align: middle;
-  }
   @media all and (min-width: 768px) {
+    margin-bottom: 2rem;
+    .name {
+      display: inline-block;
+      max-width: calc(95% - 160px);
+      margin-right: 5%;
+      padding-left: 30px;
+      vertical-align: middle;
+    }
     & {
       align-items: center;
       display: flex;

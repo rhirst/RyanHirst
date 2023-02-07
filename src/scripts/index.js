@@ -1,7 +1,5 @@
 import list from './modules/list'
 
-var dark_toggle = '';
-
 var face = document.getElementById('face');
 var link_toggle = document.getElementById('dark-toggle');
 
