@@ -1,0 +1,120 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
+
+@font-face {
+  font-family: 'IBM Plex Serif';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../fonts/IBM_Plex_Serif/IBMPlexSerif-Regular.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'IBM Plex Serif';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('../fonts/IBM_Plex_Serif/IBMPlexSerif-Medium.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'IBM Plex Serif';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('../fonts/IBM_Plex_Serif/IBMPlexSerif-Bold.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'IBM Plex Serif';
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+  src: url('../fonts/IBM_Plex_Serif/IBMPlexSerif-BoldItalic.woff2') format('woff2');
+}
+
+:root {
+  color-scheme: light;
+  --background: #f5f3ef;
+  --foreground: #3e3e3e;
+  --primary: #1f96bd;
+  --primary-heavy: #007faa;
+  --primary-foreground: #fff;
+  --secondary: #f2f2f2;
+  --secondary-foreground: #3e3e3e;
+  --muted: #f2f2f2;
+  --muted-foreground: #717171;
+  --accent: #e0ffff;
+  --accent-foreground: #007faa;
+  --destructive: #b91c1c;
+  --success: #62bf85;
+  --success-foreground: #01461b;
+  --success-heavy: #029339;
+  --border: #007faa;
+  --input: #007faa;
+  --ring: #007faa;
+  --radius: 0.25rem;
+  --link-highlight: #2eccfa;
+  --card: #fff;
+}
+.dark {
+  color-scheme: dark;
+  --background: #15202b;
+  --foreground: #fff;
+  --primary: #be90d4;
+  --primary-heavy: #9e68b8;
+  --primary-foreground: #15202b;
+  --secondary: #213242;
+  --secondary-foreground: #fff;
+  --muted: #213242;
+  --muted-foreground: #fc6399;
+  --accent: #304356;
+  --accent-foreground: #be90d4;
+  --destructive: #b91c1c;
+  --success: #15803d;
+  --success-foreground: #fff;
+  --success-heavy: #166534;
+  --border: #be90d4;
+  --input: #be90d4;
+  --ring: #be90d4;
+  --link-highlight: #be90d4;
+  --card: #213242;
+}
+@theme inline {
+  --font-serif: 'IBM Plex Serif', Georgia, serif;
+  --default-font-family: var(--font-serif);
+  --color-card: var(--card);
+  --color-card-foreground: var(--foreground);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-success-heavy: var(--success-heavy);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) - 2px);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) + 2px);
+}
+@layer base {
+  body { @apply m-0 bg-background font-serif text-base text-foreground antialiased; }
+  button, a { -webkit-tap-highlight-color: transparent; }
+  button { cursor: pointer; }
+  h1 { color: #111; }
+  .dark h1 { color: #fff; }
+  :focus-visible { outline: 2px solid var(--ring); outline-offset: 4px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; }
+}
