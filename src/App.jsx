@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
-import { Check, Mail } from 'lucide-react'
+import { Check, LoaderCircle, Mail, RotateCcw } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { MultiStateButton } from '@/components/ui/multi-state-button'
 import { PortfolioContent } from '@/components/PortfolioContent'
 import siteData, { getSiteLinks } from './data/siteData'
 import profile120 from './images/profile-120.webp'
@@ -10,8 +11,6 @@ import profileDark120 from './images/profile_dark-120.webp'
 import profileDark240 from './images/profile_dark-240.webp'
 import profileDark360 from './images/profile_dark-360.webp'
 import { Badge } from '@/components/ui/badge'
-import { cn } from '@/lib/utils'
-import { motion, MultiStateButton } from 'framer-motion'
 
 function Profile({ dark, onToggle }) {
   return (
@@ -60,6 +59,8 @@ function Footer() {
   }, [copyStatus])
 
   const copyEmail = async () => {
+    if (copyStatus === 'copying') return
+    setCopyStatus('copying')
     try {
       await navigator.clipboard.writeText(siteData.email)
       setCopyStatus('copied')
@@ -83,23 +84,31 @@ function Footer() {
             </li>
           ))}
           <li>
-            <Badge variant="link" asChild>
-              <MultiStateButton
+            <MultiStateButton
+                state={copyStatus}
+                states={{
+                  idle: { content: <><Mail aria-hidden="true" />{siteData.email}</> },
+                  copying: {
+                    content: <><LoaderCircle className="animate-spin motion-reduce:animate-none" aria-hidden="true" />Copying…</>,
+                    busy: true,
+                  },
+                  copied: {
+                    content: <><Check aria-hidden="true" />Copied!</>,
+                    className: 'bg-success text-success-foreground border-success-heavy hover:bg-success hover:text-success-foreground',
+                  },
+                  error: {
+                    content: <><RotateCcw aria-hidden="true" />Try again</>,
+                    className: 'border-destructive text-destructive hover:bg-destructive hover:text-white',
+                  },
+                }}
+                variant="ghost"
                 type="button"
                 onClick={copyEmail}
                 aria-label={`Copy email address: ${siteData.email}`}
                 title={`Copy ${siteData.email}`}
-                className={cn(
-                  copyStatus === 'copied'
-                    ? 'bg-success text-success-foreground border-success-heavy hover:bg-success hover:text-success-foreground'
-                    : '',
-                )}
-              >
-                {copyStatus === 'copied' ? <Check aria-hidden="true" /> : <Mail aria-hidden="true" />}
-                
-                {copyStatus === 'copied' ? 'Copied!' : siteData.email}
-              </MultiStateButton>
-            </Badge>
+                contentClassName="gap-1"
+                className="h-auto rounded-full border border-border px-2 py-0.5 text-xs font-medium hover:bg-primary hover:text-primary-foreground [&_svg:not([class*='size-'])]:size-3"
+              />
           </li>
         </ul>
       </nav>

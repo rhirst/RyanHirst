@@ -14,7 +14,7 @@ export function PortfolioContent() {
       <Card className="content-card" role="region" aria-labelledby="ai-heading">
         <CardHeader>
           <CardTitle>
-            <h2 id="ai-heading">Current Role</h2>
+            <h2 id="ai-heading">Current role</h2>
           </CardTitle>
         </CardHeader>
         <CardContent>

@@ -95,3 +95,42 @@ and the theme button toggle it; the choice persists when storage is available.
 
 Add more shadcn components with `npx shadcn@latest add <component>`.
 The `@/` alias points to `src/` in both Vite and the editor.
+
+## Multi-state buttons
+
+`MultiStateButton` wraps the shadcn `Button` with Motion (`motion/react`).
+The caller owns the state and any async work:
+
+```jsx
+import { MultiStateButton } from '@/components/ui/multi-state-button'
+
+<MultiStateButton
+  state={status}
+  states={{
+    idle: { content: 'Save changes' },
+    saving: { content: 'Saving…', busy: true },
+    saved: {
+      content: 'Saved!',
+      className: 'bg-success text-success-foreground hover:bg-success',
+    },
+    error: { content: 'Try again', variant: 'destructive' },
+  }}
+  onClick={saveChanges}
+/>
+```
+
+Each state accepts `content` (text and/or decorative icons), `className`,
+`contentClassName`, `style`, `variant`, `size`, `disabled`, and `busy`.
+State styles override the shared button props. Missing states fall back to
+`children` and the shared styles. `busy` disables the button and sets `aria-busy`.
+The component renders a native button and forwards its ref and event handlers;
+it does not support `asChild` composition.
+
+Content is measured with `ResizeObserver`, including font and dynamic content
+changes. Motion animates its width and height without stretching the text;
+keyed content fades and slides between states. Colors, padding, and corner
+radius use CSS transitions, supporting both Tailwind classes and inline styles.
+Customize the size spring with `transition`, the content fade in seconds with
+`contentDuration`, and CSS timing with classes such as `duration-300`.
+Reduced-motion preferences disable these transitions. Use an external
+`role="status"` message to announce async results, as the email-copy example does.
